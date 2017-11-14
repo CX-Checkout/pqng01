@@ -73,6 +73,40 @@ class Checkout
     return -1 if skus.match(/[a-z]+/)
 
     skus = order_skus_alphabetically(skus)
+
+    s_count = skus.chars.count('S')
+    t_count = skus.chars.count('T')
+    x_count = skus.chars.count('X')
+    y_count = skus.chars.count('Y')
+    z_count = skus.chars.count('Z')
+
+    stxyz_count = s_count + t_count + x_count + y_count + z_count
+
+    total = 0
+
+    total += Math.floor(stxyz_count / 3)
+
+    if(stxyz_count >= 3)
+      while stxyz_count > 0
+        skus.sub('S', '')
+      end
+      while stxyz_count > 0
+        skus.sub('T', '')
+      end
+      while stxyz_count > 0
+        skus.sub('X', '')
+      end
+      while stxyz_count > 0
+        skus.sub('Y', '')
+      end
+      while stxyz_count > 0
+        skus.sub('Z', '')
+      end
+    end
+
+
+
+
     skus = remove_free_products(skus)
 
     special_offers = ""
@@ -83,8 +117,6 @@ class Checkout
       end
       skus.gsub! pattern.to_s, ''
     end
-
-    total = 0
 
     skus.each_char do |product|
       total += @prices[product.to_sym]

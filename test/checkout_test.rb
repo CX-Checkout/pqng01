@@ -89,4 +89,8 @@ class ClientTest < Minitest::Test
       assert_equal "FF", Checkout.new.remove_free_products("FFF")
     end
 
+    def test_final_test
+      assert_equal 45, Checkout.new.remove_free_products("STXYZ")
+    end
+
 end
