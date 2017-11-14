@@ -29,6 +29,10 @@ class ClientTest < Minitest::Test
       assert_equal 40, Checkout.new.checkout("E")
     end
 
+    def test_checkout_should_return_10_for_F
+      assert_equal 10, Checkout.new.checkout("F")
+    end
+
     def test_checkout_should_handle_multiple_products
       assert_equal 100, Checkout.new.checkout("AA")
     end
@@ -77,8 +81,8 @@ class ClientTest < Minitest::Test
       assert_equal "EEEE", Checkout.new.calculate_free_products("EEEEBB")
     end
 
-    def test_checkout_should_calculate_free_products_discount
-      assert_equal 60, Checkout.new.calculate_free_products_discount("BB", "BB")
+    def test_checkout_should_remove_free_products_for_F_multibuy
+      assert_equal "FF", Checkout.new.calculate_free_products("FFF")
     end
 
 end

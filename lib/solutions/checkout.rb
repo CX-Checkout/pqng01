@@ -7,7 +7,8 @@ class Checkout
         :B => 30,
         :C => 20,
         :D => 15,
-        :E => 40
+        :E => 40,
+        :F => 10
     }
 
     @special_offer_prices = {
@@ -72,15 +73,16 @@ class Checkout
       skus = skus.sub('B', '')
     end
 
-    return skus
-  end
-
-  def calculate_free_products_discount(skus, free_products)
-    free_products_discount = 0
-    free_products.each_char do |free_product|
-      free_products_discount += @prices[free_product.to_sym] if skus.include? free_product
+    free_fs = 0
+    skus.scan(/FFF/) do
+      free_fs += 1
     end
-    return free_products_discount
+
+    free_fs.times do
+      skus = skus.sub('F', '')
+    end
+
+    return skus
   end
 
 end
